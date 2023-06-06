@@ -1,0 +1,160 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0.0",
+    "title": "React Desserts API"
+  },
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "servers": [{ "url": "http://localhost:1914" }],
+  "tags": [
+    {
+      "name": "Desserts",
+      "description": "Desserts endpoints"
+    }
+  ],
+  "paths": {
+    "/desserts": {
+      "get": {
+        "tags": ["Desserts"],
+        "summary": "Get all desserts",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "description": "Page"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "Limit"
+          },
+          {
+            "in": "query",
+            "name": "category",
+            "description": "Desserts's category"
+          },
+          {
+            "in": "query",
+            "name": "sortBy",
+            "description": "Sorting by field"
+          },
+          {
+            "in": "query",
+            "name": "order",
+            "description": "Sort order"
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "description": "Search by title"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAllDessertsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/desserts/{id}": {
+      "get": {
+        "tags": ["Desserts"],
+        "summary": "Get one dessert by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Dessert's id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetOneDessertResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cannot find dessert with this id",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "GetAllDessertsResponse": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "number"
+          },
+          "limit": {
+            "type": "number"
+          },
+          "totalPages": {
+            "type": "number"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string"
+                },
+                "imgUrl": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "price": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      },
+      "GetOneDessertResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "imgUrl": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          },
+          "category": {
+            "type": "number"
+          },
+          "rating": {
+            "type": "number"
+          },
+          "comments": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
