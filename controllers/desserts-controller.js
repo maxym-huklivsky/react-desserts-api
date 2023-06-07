@@ -10,7 +10,7 @@ const getAll = async (req, res, next) => {
       $or: [category === 0 ? {} : { category }],
     };
     const desserts = await Dessert.find(query)
-      .sort({ [sortBy]: order })
+      .sort({ [sortBy]: order, _id: 1 })
       .select({ comments: 0, rating: 0, category: 0 })
       .skip(skip)
       .limit(limit);
